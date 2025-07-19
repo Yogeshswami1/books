@@ -22,7 +22,7 @@ jobs:
           script: |
             echo "✅ Connected to EC2"
 
-            cd /var/www/html/Expenses
+            cd /var/www/html/Books
 
             echo "📦 Pulling latest code..."
             sudo chown -R ubuntu:ubuntu .

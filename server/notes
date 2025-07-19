@@ -37,3 +37,5 @@ server {
     error_log /var/log/nginx/booksbackend.yogeshtech.xyz.error.log;
     access_log /var/log/nginx/booksbackend.yogeshtech.xyz.access.log;
 }
+
+sudo ln -s /etc/nginx/sites-available/booksbackend.yogeshtech.xyz /etc/nginx/sites-enabled/
