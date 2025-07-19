@@ -32,7 +32,7 @@ function App() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>📚 Book Tracker</h1>
+      <h1 style={styles.heading}>📚 Book Tracker App Yogesh</h1>
       <BookForm onAdd={addBook} />
       <BookList books={books} onDelete={deleteBook} />
     </div>

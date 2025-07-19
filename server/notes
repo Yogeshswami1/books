@@ -1,0 +1,39 @@
+sudo nano /etc/nginx/sites-available/books.yogeshtech.xyz
+
+server {
+    listen 80;
+    server_name books.yogeshtech.xyz;
+
+    location / {
+        proxy_pass http://localhost:5006;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    error_log /var/log/nginx/books.yogeshtech.xyz.log;
+    access_log /var/log/nginx/books.yogeshtech.xyz.log;
+}
+
+sudo ln -s /etc/nginx/sites-available/books.yogeshtech.xyz /etc/nginx/sites-enabled/
+
+sudo nano /etc/nginx/sites-available/booksbackend.yogeshtech.xyz
+
+server {
+    listen 80;
+    server_name booksbackend.yogeshtech.xyz;
+
+    location / {
+        proxy_pass http://localhost:5006;  # Assuming your Node.js app is running on port 3000
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    error_log /var/log/nginx/booksbackend.yogeshtech.xyz.error.log;
+    access_log /var/log/nginx/booksbackend.yogeshtech.xyz.access.log;
+}
