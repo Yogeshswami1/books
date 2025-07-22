@@ -4,7 +4,7 @@ services:
     build: ./client
     container_name: frontend
     ports:
-      - "80:80"  # production ke liye 80 port rakho
+      - "3000:80"  # production ke liye 80 port rakho
     restart: always
 
   backend:
