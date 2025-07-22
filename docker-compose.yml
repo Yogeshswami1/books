@@ -1,33 +1,19 @@
 version: '3'
-
 services:
   frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    build: ./client
+    container_name: frontend
     ports:
-      - '3005:80'  # You can use 80 in production
-    depends_on:
-      - backend
+      - "80:80"  # production ke liye 80 port rakho
     restart: always
 
   backend:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    build: ./server
+    container_name: backend
     ports:
-      - '5007:5006'   # 5000 is internal, 5003 exposed outside
+      - "5000:5000"
+    restart: always
     env_file:
       - ./server/.env
     depends_on:
-      - mongo
-    restart: always
-
-  mongo:
-    image: mongo
-    restart: always
-    volumes:
-      - mongo-data:/data/db
-
-volumes:
-  mongo-data:
+      - frontend
