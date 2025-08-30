@@ -1,0 +1,75 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: backend-service
+# spec:
+#   selector:
+#     app: backend
+#   ports:
+#     - port: 5003
+#       targetPort: 5003
+#       nodePort: 30001
+#   type: NodePort
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: backend
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: backend
+#   template:
+#     metadata:
+#       labels:
+#         app: backend
+#     spec:
+#       containers:
+#       - name: backend
+#         image: backend:latest
+#         imagePullPolicy: Never
+#         env:
+#         - name: MONGO_URI
+#           value: mongodb://mongo:27017/taskdb
+#         ports:
+#         - containerPort: 5000
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 5000        # service port
+      targetPort: 5000  # pod container port
+      nodePort: 30001   # external port
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: backend:latest
+        imagePullPolicy: Never
+        env:
+        - name: MONGO_URI
+          value: mongodb+srv://yogeshkumar86077:123@cluster0.g0nnk8k.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        - name: PORT
+          value: "5000"
+        ports:
+        - containerPort: 5000

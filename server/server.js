@@ -5,11 +5,15 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-  origin: 'http://books.yogeshtech.xyz',
+  origin: [
+    'http://books.yogeshtech.xyz',
+    'http://localhost:30002'   // frontend local testing
+  ],
   methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
-}));app.use(express.json());
+}));
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
